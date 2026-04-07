@@ -1,9 +1,4 @@
-# API de Login con FastAPI
-
-API de autenticación usando FastAPI y SQLModel con base de datos local embebida en código.
-
-## Requisitos
-- Python 3.10+
+# Login API con FastAPI
 
 ## Instalación
 pip install -r requirements.txt
@@ -11,31 +6,23 @@ pip install -r requirements.txt
 ## Ejecución
 uvicorn main:app --reload
 
-La API estará disponible en: http://127.0.0.1:8000  
-Documentación interactiva en: http://127.0.0.1:8000/docs
+## Ejemplos
 
-## Endpoint
+### Login exitoso
+curl -X POST "http://127.0.0.1:8000/login" \
+     -H "Content-Type: application/json" \
+     -d '{"username": "admin", "password": "admin"}'
 
-### POST /iniciar-sesion
+# Respuesta:
+# {"status":"success","message":"Bienvenido, admin!"}
 
-**Body:**
-{
-  "nombre_usuario": "admin",
-  "contrasena": "admin"
-}
+### Login fallido
+curl -X POST "http://127.0.0.1:8000/login" \
+     -H "Content-Type: application/json" \
+     -d '{"username": "admin", "password": "wrong"}'
 
-**Respuesta exitosa (200):**
-{
-  "mensaje": "Inicio de sesión exitoso",
-  "usuario": "admin"
-}
+# Respuesta:
+# {"detail":"Usuario o contraseña incorrectos"}
 
-**Respuesta fallida (401):**
-{
-  "detail": "Usuario o contraseña incorrectos"
-}
-
-## Usuarios de prueba
-usuarios: admin,user,guest 
-## Contraseñas de prueba
-contraseñas: admin,user,guest
+## Documentación interactiva
+http://127.0.0.1:8000/docs
